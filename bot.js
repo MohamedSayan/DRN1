@@ -1,12 +1,12 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
-var prefix = "$"
+var prefix = "d!"
  
 client.on('message', message => {
     var p = message.mentions.members.first();
     var reason = message.content.split(" ").slice(2).join(' ');
     var log = message.guild.channels.find('name', 'warns-log');
-    if(message.content.startsWith(`${prefix}warn`)){
+    if(message.content.startsWith(`d!{prefix}warn`)){
         if(!p) return message.reply(`**منشن الشخص اول**`);
         if(!reason) return message.reply(`**حط سبب**`);
         if(!p.bannable) return message.reply(`**مقدر اعطي وورن لشخص من الادارة**`);
@@ -22,13 +22,13 @@ client.on('message', message => {
         reason = reason.replace('10', "**نشر بالعام**");
         var embed = new Discord.RichEmbed()
         .setAuthor(`تم التحذير`)
-        .addField(`Name ♣`, `<@${p.id}>`)
-        .addField(`By ♣`, `<@${message.author.id}>`)
+        .addField(`Name ♣`, `<@d!{p.id}>`)
+        .addField(`By ♣`, `<@d!{message.author.id}>`)
         .addField(`Reason ♣`, reason)
         .setTimestamp()
         .setColor("WHITE")
         .setFooter(` `)
-        message.channel.send(`${p} ${reason}`)
+        message.channel.send(`d!{p} d!{reason}`)
             message.delete();
         log.send({embed});
         warnRoles = ['Only Me']
@@ -39,7 +39,7 @@ client.on('message', message => {
     var p = message.mentions.members.first();
     var reason = message.content.split(" ").slice(2).join(' ');
     var log = message.guild.channels.find('name', 'ban-log');
-    if(message.content.startsWith(`${prefix}ban`)){
+    if(message.content.startsWith(`d!{prefix}ban`)){
         if(!p) return message.reply(`**منشن الشخص**`);
         if(!reason) return message.reply(`**حط سبب**`);
         if(!p.bannable) return message.reply(`**م اقدر ابتد شخص من الستاف**`);
@@ -50,8 +50,8 @@ client.on('message', message => {
         reason = reason.replace('5', "**سب الاهل**");
         var embed = new Discord.RichEmbed()
         .setAuthor(`User Banned!`)
-        .addField(`Name ♣`, `<@${p.id}>`)
-        .addField(`By ♣`, `<@${message.author.id}>`)
+        .addField(`Name ♣`, `<@d!{p.id}>`)
+        .addField(`By ♣`, `<@d!{message.author.id}>`)
         .addField(`Reason ♣`, reason)
         .setTimestamp()
         .setColor("BLACK")
@@ -103,7 +103,7 @@ client.on('message',async message => {
                   let giveEmbed = new Discord.RichEmbed()
                   .setAuthor(message.guild.name, message.guild.iconURL)
                   .setTitle(title)
-                  .setDescription(`المدة : ${duration / 60000} دقائق`)
+                  .setDescription(`المدة : d!{duration / 60000} دقائق`)
                   .setFooter(message.author.username, message.author.avatarURL);
                   message.guild.channels.find('name', room).send(giveEmbed).then(m => {
                      let re = m.react('💖');
@@ -115,7 +115,7 @@ client.on('message',async message => {
                        let endEmbed = new Discord.RichEmbed()
                        .setAuthor(message.author.username, message.author.avatarURL)
                        .setTitle(title)
-                       .addField('انتهى القيف اواي !',`الفائز هو : ${gFilter}`)
+                       .addField('انتهى القيف اواي !',`الفائز هو : d!{gFilter}`)
                        .setFooter(message.guild.name, message.guild.iconURL);
                        m.edit(endEmbed);
                      },duration);
@@ -146,7 +146,7 @@ if(message.content.startsWith( prefix + 'invite')) {
             let member = client.guilds.get(message.guild.id).members.get(oi);
             let personalInvites = invs.filter(i => i.inviter.id === oi);
             let urll = invs.filter(i => i.inviter.id === oi);
-            let link = urll.reduce((p , v) => v.url +` , Total de membros recrutados no convite: ${v.uses}.\n`+ p, `\nServidor: ${message.guild.name} \n `);
+            let link = urll.reduce((p , v) => v.url +` , Total de membros recrutados no convite: d!{v.uses}.\n`+ p, `\nServidor: d!{message.guild.name} \n `);
             let inviteCount = personalInvites.reduce((p, v) => v.uses + p, 0);
             let inviteCode = personalInvites.reduce((p, v) => v.code);
             let possibleInvites = [['Total de membros recrutados:']];
@@ -157,11 +157,11 @@ if(message.content.startsWith( prefix + 'invite')) {
             let daysJoined = millisJoined / 1000 / 60 / 60 / 24;
            
             var inviteInfo = new Discord.RichEmbed()
-            .setTitle(`:incoming_envelope: **[INVITE INFO]** ${Username}`)
+            .setTitle(`:incoming_envelope: **[INVITE INFO]** d!{Username}`)
             .setThumbnail(client.user.avatarURL)
-            .addField('**الدعوات**', `**➥** [ شخص **${Number(inviteCount)}** ]`)
-            .addField('**تم الانضمام للسيرفر من**', `**➥** [ يوم **${daysJoined.toFixed(0)}** ]`)
-            .addField('**رابط دعوة الانضمام**', `**➥** [ **https://discord.gg/${inviteCode || 'Zm2U6we'}** ]`)
+            .addField('**الدعوات**', `**➥** [ شخص **d!{Number(inviteCount)}** ]`)
+            .addField('**تم الانضمام للسيرفر من**', `**➥** [ يوم **d!{daysJoined.toFixed(0)}** ]`)
+            .addField('**رابط دعوة الانضمام**', `**➥** [ **https://discord.gg/d!{inviteCode || 'Zm2U6we'}** ]`)
             .setColor('ORANGE')
             .setTimestamp()
             .setFooter(Tag, Avatar)
@@ -241,9 +241,9 @@ client.on('message', message => {
             if(!ticketsStation) {
                 message.guild.createChannel("TICKETS.", "category");
             };
-                message.guild.createChannel(`ticket-${message.author.username}`, "text").then(ticket => {
+                message.guild.createChannel(`ticket-d!{message.author.username}`, "text").then(ticket => {
                     message.delete()
-                        message.channel.send(`Your ticket has been created. [ ${ticket} ]`);
+                        message.channel.send(`Your ticket has been created. [ d!{ticket} ]`);
                     ticket.setParent(ticketsStation);
                     ticketsStation.setPosition(1);
                         ticket.overwritePermissions(message.guild.id, {
@@ -261,10 +261,10 @@ client.on('message', message => {
                     let embed = new Discord.RichEmbed()
                                 .setTitle('**New Ticket.**')
                                 .setColor("RANDOM")
-                                .setThumbnail(`${message.author.avatarURL}`)
+                                .setThumbnail(`d!{message.author.avatarURL}`)
                                 .addField('Subject', args)
                                 .addField('Author', message.author)
-                                .addField('Channel', `<#${message.channel.id}>`);
+                                .addField('Channel', `<#d!{message.channel.id}>`);
  
                                 ticket.sendEmbed(embed);
                 }) .catch();
@@ -310,20 +310,20 @@ client.on("guildMemberAdd", member => {
 });
 /////////
 client.on('message', msg => {
-    if(msg.content === '$help')
+    if(msg.content === 'd!help')
     msg.reply('Check Your DM :white_check_mark:')
   });
  
  
   client.on("message", message => {
-    if (message.content === "$help") {
+    if (message.content === "d!help") {
      const embed = new Discord.RichEmbed()
          .setColor("#00FF00")
          .setThumbnail(message.author.avatarURL)
          .setDescription(`**Help|هيلب
-       $invites | لمعرفة عدد انفايتاتك
-       $new | لإنشاء تكت
-       $giveaway  |  لإعداد قيفاواي
+       d!invites | لمعرفة عدد انفايتاتك
+       d!new | لإنشاء تكت
+       d!giveaway  |  لإعداد قيفاواي
        ** `)
    message.author.sendEmbed(embed)
    
