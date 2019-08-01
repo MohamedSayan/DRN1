@@ -1,10 +1,9 @@
-const Discord = require('discord.js');
+const Discord = require("discord.js");
 const client = new Discord.Client();
-console.log("AR-Gangs");
 var prefix = "a!";
 client.on("message", message => {
 
-            if (message.content.startsWith(prefix + "a!")) {
+            if (message.content.startsWith(prefix + "bc")) {
                          if (!message.member.hasPermission("ADMINISTRATOR"))  return;
   let args = message.content.split(" ").slice(1);
   var argresult = args.join(' '); 
@@ -16,15 +15,18 @@ client.on("message", message => {
 };     
 });
 
+
 client.on('ready', () => {
    console.log(`----------------`);
-      console.log(`Desert Bot- Script By : darkxx`);
+      console.log(`AR-BroadCast BOT- Script By : zOtakuXz`);
         console.log(`----------------`);
-      console.log(`ON ${client.guilds.size} Servers '     Script By : black ' `);
+      console.log(`ON ${client.guilds.size} Servers '     Script By : zOtakuXz ' `);
     console.log(`----------------`);
   console.log(`Logged in as ${client.user.tag}!`);
-client.user.setGame(`a!bc |AR-BroadCast |server`,"http://twitch.tv/Death")
+client.user.setGame(`a!bc | zOtakuXz`,"http://twitch.tv/S-F")
 client.user.setStatus("dnd")
 });
+
+
 
 client.login(process.env.BOT_TOKEN);
